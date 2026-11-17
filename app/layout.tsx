@@ -1,5 +1,6 @@
 import { Geist, Geist_Mono } from 'next/font/google';
 import Link from 'next/link';
+import { ThemeProvider } from '@/components/theme-provider';
 import './globals.css';
 
 const geistSans = Geist({
@@ -16,14 +17,21 @@ export default function RootLayout({
   children,
 }: { children: React.ReactNode }) {
   return (
-    <html lang="vi">
+    <html lang="vi" suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased`}>
-        <nav className="flex gap-4 p-4">
-          <Link href="/">Trang chủ</Link>
-          <Link href="/about">Giới thiệu</Link>
-          <Link href="/projects">Dự án</Link>
-        </nav>
-        {children}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <nav className="flex gap-4 p-4">
+            <Link href="/">Trang chủ</Link>
+            <Link href="/about">Giới thiệu</Link>
+            <Link href="/projects">Dự án</Link>
+          </nav>
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );
